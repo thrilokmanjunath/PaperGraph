@@ -32,7 +32,7 @@ docker-compose up -d
 ```
 
 ### 2. Start the Backend
-Navigate to the `backend` directory and run the Spring Boot application:
+Navigate to the `backend` directory and run the Spring Boot application. It defaults to the `local` profile (`application-local.yml`).
 ```bash
 cd backend
 ./mvnw spring-boot:run
@@ -50,10 +50,16 @@ npm run dev
 
 ## Deployment
 
-The application is structured for easy deployment to modern cloud providers:
-- **Frontend**: Connect the `frontend` directory to **Vercel** for automatic deployments.
-- **Backend**: Connect the `backend` directory to **Render**, **Railway**, or **Google Cloud Run**.
-- **Database**: Use a managed PostgreSQL provider like **Neon** or **Supabase**.
+The application is fully containerized and uses 12-factor configuration (environment variables) for production deployment.
+
+### Render Backend Deployment Configuration
+When deploying the backend to Render, connect your PostgreSQL instance and provide the following environment variables:
+- `JDBC_DATABASE_URL`: `jdbc:postgresql://<your-render-db-host>:5432/<dbname>`
+- `DATABASE_USERNAME`: `<your-db-username>`
+- `DATABASE_PASSWORD`: `<your-db-password>`
+- `SPRING_PROFILES_ACTIVE`: `prod`
+
+Alternatively, the `render.yaml` Blueprint automatically orchestrates the deployment if a database service is attached.
 
 ## License
 MIT

@@ -5,9 +5,9 @@ services:
     image: postgres:15-alpine
     container_name: papermate-db
     environment:
-      POSTGRES_USER: papermate
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: papermatedb
+      POSTGRES_USER: ${DATABASE_USERNAME:-papermate}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
+      POSTGRES_DB: ${DB_NAME:-papermatedb}
     ports:
       - "5432:5432"
     volumes:
