@@ -4,9 +4,9 @@ spring:
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:local}
   datasource:
-    # Render provides DATABASE_URL which is often just postgres://, Spring needs jdbc:postgresql://
-    # Render also allows custom env vars, so we'll support both patterns with fallbacks
-    url: ${JDBC_DATABASE_URL:${DATABASE_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:papermatedb}}}
+    # Render provides DATABASE_URL which is postgres://, but Spring requires jdbc:postgresql://
+    # We remove the DATABASE_URL fallback so it strictly uses JDBC_DATABASE_URL or default
+    url: ${JDBC_DATABASE_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:papermatedb}}
     username: ${DATABASE_USERNAME:papermate}
     password: ${DATABASE_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
