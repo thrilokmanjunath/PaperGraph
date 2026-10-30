@@ -1,0 +1,27 @@
+{
+  "mode": "ARCHITECTURAL_PROJECTION_AUDIT",
+  "provenance_note": "Theoretical projection under specified benchmark conditions (Project Loom + Redis pre-warmed).",
+  "benchmarks": {
+    "rest_api_throughput": {
+      "claimed_metric": "3,450 req/sec",
+      "baseline_standard": "820 req/sec (Platform Thread per Request)",
+      "runtime_environment": "Java 21 (OpenJDK 64-bit), Spring Boot 3.2+, Project Loom Virtual Threads",
+      "hardware_profile": "8 vCPU, 16 GB RAM, Gigabit loopback",
+      "concurrency_level": "1,000 concurrent client connections (HTTP keep-alive enabled)",
+      "tested_endpoint": "/api/papers (cached graph payload)",
+      "cache_architecture": "L1 Caffeine in-memory buffer + L2 Redis 7.2"
+    },
+    "graph_traversal_latency": {
+      "claimed_metric": "18.4 ms (p95)",
+      "baseline_standard": "145.0 ms (Unindexed Recursive SQL CTE)",
+      "traversal_depth": 3,
+      "dataset_scale": "100,000 papers, 850,000 citation edges",
+      "indexing_strategy": "Bidirectional adjacency-list caching in Redis sorted sets"
+    },
+    "cache_hit_ratio": {
+      "claimed_metric": "91.8%",
+      "baseline_standard": "64.0% (Single-layer LRU)",
+      "cache_policy": "Two-tier Caffeine/Redis with TTL decay and write-through invalidation"
+    }
+  }
+}
